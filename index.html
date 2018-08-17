@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+		<meta name = "format-detection" content="telephone = no" />
+		<title>好运连连</title>
+		<link type="text/css" href="css/Xcompany.css" rel="stylesheet" />
+		<link type="text/css" href="css/luck.css?=6" rel="stylesheet" />
+		<link type="text/css" href="css/animate.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+		<script type="text/javascript" src="js/poost.js"></script>
+		<script type="text/javascript" src="js/appopen.js"></script>
+		<script type="text/javascript" src="js/info.js?=4"></script>
+		<script type="text/javascript" src="js/common.js?=3"></script>
+		<script type="text/javascript" src="js/luck.js?=13"></script>
+		<script type="text/javascript" src="js/webSocket.js?=9"></script>
+		<script type="text/javascript" src="js/luck_socket.js?=17"></script>
+		<script type="text/javascript" src="js/font.js"></script>
+		<script type="text/javascript" src="js/wow.min.js"></script>
+		<script type="text/javascript" src="js/cookie.js"></script>
+		<script type="text/javascript" src="js/card.js"></script>
+		<style type="text/css">
+			.luck{overflow: hidden;height: 100%;}
+		</style>
+	</head>
+	<body>
+		<div class="luck" id="luck">
+			<!--遮罩-->
+			<div class="luck_zhezhao"></div>
+			<!--页面背景-->
+			<div class="luck_beij"><img src="images/beij.jpg"></div>
+			<!--头部栏-->
+			<div class="luck_top">
+		  		<div class="luck_fl fl" onclick="javascript:appOen.showRechargeDialog1();"><i class="icon_gold"></i><span class="myGold" id="myGold"></span><i class="icon_more"></i></div>
+		  		<div class="luck_fr fr">
+		  			<ul>
+		  				<li class="luck_more"><a href="javascript:;"><img src="images/btn_more_1.png"></a>
+		  					<div class="luck_fr_list">
+		  						<a href="javascript:;"id="btn_order">竞猜记录</a>
+		  						<a href="javascript:;" id="btn_rule">玩法介绍</a>
+		  						<a href="javascript:;" onclick="appOen.home()">返回首页</a>
+		  					</div>
+		  				</li>
+		  				<li><a href="javascript:;" onclick="javascript:appOen.showGoldenShopDialog();"><img src="images/btn_shop_1.png"></a></li>
+		  				<li><a href="javascript:;" onclick="javascript:appOen.gameTask(10);"><img src="images/btn_renwu_1.png"></a></li>
+		  			</ul>
+		  		</div>
+		  	</div>
+			<!--额外加奖-->
+			<div class="luck_jiang">
+				<div class="beij"><img src="images/beij3.png"></div>
+				<a href="javascript:;">本局额外加奖</a>
+			</div>
+			<!--求好运-->
+			<div class="luck_haoyun"><a href="javascript:;"><img src="images/btn_luck.png"></a></div>
+			<!--报喜、吉时-->
+			<div class="luck_time">
+				<!--财神-->
+				<div class="luck_caishen">
+					<img src="images/luck_caishen.png">
+					<div class="caishen_text">
+						<img src="images/img_text.png">
+						<div class="text_info">
+						   <P>祝你财源广进</P>
+						   <P>幸福美满</P>
+						</div>
+					</div>
+				</div>
+				<div class="time_baoxi imt"><img src="images/img_baoxi.png"></div>
+				<div class="time_jishi imt"><img src="images/img_jishi.png"></div>
+				<div class="luck_time_content ov">
+				   <div class="fl">
+				   	 <a href="javascript:;" class="btn_kaiJiangOrder" onclick="order()"><span class="gb">玉女</span><span class="wf">福</span><span class="sx">猴</span></a>
+				   </div>
+				   <div class="fr">吉时还有<span class="time" id="djTime"></span></div>
+				</div>
+			</div>
+			<!--投注区域-->
+			<div class="luck_content">
+				<!--玉女-->
+				<div class="content_herself pot xfg_textActive">
+					<div class="btn_herself">
+						<div class="act" data_name="a_1,b_1"></div>
+						<div class="num">0</div>
+						<div class="me">0</div>
+						<img src="images/zuhe1.png">
+					</div>
+					<div class="ctz"><img src="images/ctz.png"></div>
+					<a href="javascript:;" class="btn_res"><img src="images/btn_refresh1.png"></a>
+					<a href="javascript:;" class="btn_res1"><img src="images/btn_refresh1.png"></a>
+					<span class="st1 spn">金童</span>
+					<span class="st2 spn">福</span>
+					<em class="beilv"></em>
+				</div>
+				<!--金童-->
+				<div class="content_GoldenBoy pot dfg_textActive">
+					<div class="btn_herself">
+						<div class="act" data_name="a_1,b_1,c_1"></div>
+						<div class="num">0</div>
+						<div class="me">0</div>
+						<img src="images/zuhe2.png">
+					</div>
+					<div class="ctz"><img src="images/ctz.png"></div>
+					<a href="javascript:;" class="btn_res"><img src="images/btn_refresh2.png"></a>
+					<a href="javascript:;" class="btn_res1"><img src="images/btn_refresh2.png"></a>
+					<span class="st1 spn">金童</span>
+					<span class="st2 spn">福</span>
+					<span class="st3 spn">鼠</span>
+					<em class="beilv"></em>
+				</div>
+				<!--投注盘-->
+				<div class="content_table">
+					<div class="beij"><img src="images/beij1.png"></div>
+					<!--生肖-->
+					<div class="luck_shengxiao">
+						<div class="beij"><img src="images/beij_sx.png"></div>
+						<i class="beilv"></i>
+						<ul>
+							<li class="c_1"><a href="javascript:;">
+								<div class="act c_1" data_name="c_1"></div>
+								<div class="num">0</div>
+								<div class="me">0</div>
+								<img src="images/sx_shu.png">
+							</a></li>
+							<li class="c_2"><a href="javascript:;">
+								<div class="act c_2" data_name="c_2"></div>
+								<div class="num r30">0</div>
+								<div class="me r30">0</div>
+								<img src="images/sx_niu.png">
+							</a></li>
+							<li class="c_3"><a href="javascript:;">
+								<div class="act c_3" data_name="c_3"></div>
+								<div class="num r60">0</div>
+								<div class="me r60">0</div>
+								<img src="images/sx_hu.png">
+							</a></li>
+							<li class="c_4"><a href="javascript:;">
+								<div class="act c_4" data_name="c_4"></div>
+								<div class="num r90">0</div>
+								<div class="me r90">0</div>
+								<img src="images/sx_tu.png">
+							</a></li>
+							<li class="c_5"><a href="javascript:;">
+								<div class="act c_5" data_name="c_5"></div>
+								<div class="num r120">0</div>
+								<div class="me r120">0</div>
+								<img src="images/sx_long.png">
+							</a></li>
+							<li class="c_6"><a href="javascript:;">
+								<div class="act c_6" data_name="c_6"></div>
+								<div class="num r150">0</div>
+								<div class="me r150">0</div>
+								<img src="images/sx_she.png">
+							</a></li>
+							<li class="c_7"><a href="javascript:;">
+								<div class="act c_7" data_name="c_7"></div>
+								<div class="num r180">0</div>
+								<div class="me r180">0</div>
+								<img src="images/sx_ma.png">
+							</a></li>
+							<li class="c_8"><a href="javascript:;">
+								<div class="act c_8" data_name="c_8"></div>
+								<div class="num r210">0</div>
+								<div class="me r210">0</div>
+								<img src="images/sx_yang.png">
+							</a></li>
+							<li class="c_9"><a href="javascript:;">
+								<div class="act c_9" data_name="c_9"></div>
+								<div class="num r240">0</div>
+								<div class="me r240">0</div>
+								<img src="images/sx_hou.png">
+							</a></li>
+							<li class="c_10"><a href="javascript:;">
+								<div class="act c_10" data_name="c_10"></div>
+								<div class="num r270">0</div>
+								<div class="me r270">0</div>
+								<img src="images/sx_ji.png">
+							</a></li>
+							<li class="c_11"><a href="javascript:;">
+								<div class="act c_11" data_name="c_11"></div>
+								<div class="num r300">0</div>
+								<div class="me r300">0</div>
+								<img src="images/sx_gou.png">
+							</a></li>
+							<li class="c_12"><a href="javascript:;">
+								<div class="act c_12" data_name="c_12"></div>
+								<div class="num r330">0</div>
+								<div class="me r330">0</div>
+								<img src="images/sx_zhu.png">
+							</a></li>
+						</ul>
+					</div>
+					<!--五福-->
+					<div class="luck_wufu">
+						<div class="beij"><img src="images/beij_wf.png"></div>
+						<i class="beilv"></i>
+						<ul>
+							<li class="b_1"><a href="javascript:;">
+								<div class="act b_1" data_name="b_1"></div>
+								<div class="num w0">0</div>
+								<div class="me w0">0</div>
+								<img src="images/touz_fu.png">
+							</a></li>
+							<li class="b_2"><a href="javascript:;">
+								<div class="act b_2" data_name="b_2"></div>
+								<div class="num w72">0</div>
+								<div class="me w72">0</div>
+								<img src="images/touz_lu.png">
+							</a></li>
+							<li class="b_3"><a href="javascript:;">
+								<div class="act b_3" data_name="b_3"></div>
+								<div class="num w144">0</div>
+								<div class="me w144">0</div>
+								<img src="images/touz_shou.png">
+							</a></li>
+							<li class="b_4"><a href="javascript:;">
+								<div class="act b_4" data_name="b_4"></div>
+								<div class="num w216">0</div>
+								<div class="me w216">0</div>
+								<img src="images/touz_xi.png">
+							</a></li>
+							<li class="b_5"><a href="javascript:;">
+								<div class="act b_5" data_name="b_5"></div>
+								<div class="num w288">0</div>
+								<div class="me w288">0</div>
+								<img src="images/touz_cai.png">
+							</a></li>
+						</ul>
+					</div>
+					<!--金童玉女-->
+					<div class="luck_jennifer">
+						<div class="beij"><img src="images/beij_jy.png"></div>
+						<i class="beilv"></i>
+						<ul>
+							<li class="a_1"><a href="javascript:;">
+								<div class="act a_1" data_name="a_1"></div>
+								<div class="num gb1">0</div>
+								<div class="me gb1">0</div>
+								<img src="images/goldenBoy.png">
+							</a></li>
+							<li class="a_2"><a href="javascript:;">
+								<div class="act a_2" data_name="a_2"></div>
+								<div class="num gb2">0</div>
+								<div class="me gb2">0</div>
+								<img src="images/herself.png">
+							</a></li>
+						</ul>
+					</div>
+				</div>
+				<!--参与人员-->
+				<div class="content_player">
+					<ul class="ov"></ul>
+					<div class="player_more"><img src="images/paih_more.png"></div>
+				</div>
+			</div>
+			<!--底部-->
+			<div class="luck_foot">
+				<div class="beij"><img src="images/beij2_1.png"></div>
+				<div class="foot_ov">
+					<!--<div class="fl"><a href="javascript:;" class="btn_num"><img src="images/touz_num.png"><span class="num" id="playerNum"></span></a></div>-->
+					<div class="fr"><a href="javascript:;" class="btn_clear"><img src="images/touz_clear.png"></a></div>
+					<!--下注筹码-->
+					<ul class="foot_cm"></ul>
+				</div>
+			</div>
+			<!--提示文本-->
+			<div class="luck_tis"><img src=""></div>
+			<!--开奖-->
+			<div class="kaijiang">
+				<div class="tanc_beij"></div>
+				<!--开奖动画-->
+				<div class="luck_kaijiang">
+					<div class="kaijiang_beij"><img src="images/beij8.png"></div>
+					<div class="kaijiang_cont">
+						<div class="kaijiang_ani">
+							<div class="ant_wf ani wow animated" data-wow-duration="1.0s">
+								<div class="ani_beij"><img src="images/light.png"></div>
+								<div class="ani_zz">
+									<img src="images/liangz.png">
+								</div>
+								<div class="ani_result">
+									<div class="result_imt">
+										<div class="imt_img"><img src="images/img_t1.png"></div>
+										<div class="imt_list">
+											<div class="list_imt">
+												<ul>
+													<li><img src="images/wf_imt1.png"></li>
+													<li><img src="images/wf_imt2.png"></li>
+													<li><img src="images/wf_imt3.png"></li>
+													<li><img src="images/wf_imt4.png"></li>
+													<li><img src="images/wf_imt5.png"></li>
+													<li><img src="images/wf_imt1.png"></li>
+													<li><img src="images/wf_imt2.png"></li>
+													<li><img src="images/wf_imt3.png"></li>
+													<li><img src="images/wf_imt4.png"></li>
+													<li><img src="images/wf_imt5.png"></li>
+													<li><img src="images/wf_imt1.png"></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="ant_bg ani wow animated" data-wow-duration="1.0s" data-wow-delay="0.3s">
+								<div class="ani_beij"><img src="images/light.png"></div>
+								<div class="ani_zz"><img src="images/liangz.png"></div>
+								<div class="ani_result">
+									<div class="result_imt">
+										<div class="imt_img"><img src="images/img_t2.png"></div>
+										<div class="imt_list">
+											<div class="list_imt">
+												<ul>
+													<li><img src="images/bgirl_imt1.png"></li>
+													<li><img src="images/bgirl_imt2.png"></li>
+													<li><img src="images/bgirl_imt1.png"></li>
+													<li><img src="images/bgirl_imt2.png"></li>
+													<li><img src="images/bgirl_imt1.png"></li>
+													<li><img src="images/bgirl_imt2.png"></li>
+													<li><img src="images/bgirl_imt1.png"></li>
+													<li><img src="images/bgirl_imt2.png"></li>
+													<li><img src="images/bgirl_imt1.png"></li>
+													<li><img src="images/bgirl_imt2.png"></li>
+													<li><img src="images/bgirl_imt1.png"></li>
+													<li><img src="images/bgirl_imt2.png"></li>
+													<li><img src="images/bgirl_imt1.png"></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="ant_sx ani wow animated" data-wow-duration="1.0s" data-wow-delay="0.6s">
+								<div class="ani_beij"><img src="images/light.png"></div>
+								<div class="ani_zz"><img src="images/liangz.png"></div>
+								<div class="ani_result">
+									<div class="result_imt">
+										<div class="imt_img"><img src="images/img_t3.png"></div>
+										<div class="imt_list">
+											<div class="list_imt">
+												<ul>
+													<li><img src="images/sx_imt1.png"></li>
+													<li><img src="images/sx_imt2.png"></li>
+													<li><img src="images/sx_imt3.png"></li>
+													<li><img src="images/sx_imt4.png"></li>
+													<li><img src="images/sx_imt5.png"></li>
+													<li><img src="images/sx_imt6.png"></li>
+													<li><img src="images/sx_imt7.png"></li>
+													<li><img src="images/sx_imt8.png"></li>
+													<li><img src="images/sx_imt9.png"></li>
+													<li><img src="images/sx_imt10.png"></li>
+													<li><img src="images/sx_imt11.png"></li>
+													<li><img src="images/sx_imt12.png"></li>
+													<li><img src="images/sx_imt1.png"></li>
+													<li><img src="images/sx_imt2.png"></li>
+													<li><img src="images/sx_imt3.png"></li>
+													<li><img src="images/sx_imt4.png"></li>
+													<li><img src="images/sx_imt5.png"></li>
+													<li><img src="images/sx_imt6.png"></li>
+													<li><img src="images/sx_imt7.png"></li>
+													<li><img src="images/sx_imt8.png"></li>
+													<li><img src="images/sx_imt9.png"></li>
+													<li><img src="images/sx_imt10.png"></li>
+													<li><img src="images/sx_imt11.png"></li>
+													<li><img src="images/sx_imt12.png"></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--开奖对联-->
+				<div class="luck_duilian">
+				   <div class="duilian_beij"><img src="images/beij9.jpg"></div>
+				   <div class="duilian_cont">
+				   	  <div class="duilian_title duil">
+				   	  	<img src="images/dl_beij1.png">
+				   	  	<div class="text"><span class="text_result">玉女</span><span class="text_other">迎春</span></div>
+				   	  </div>
+				   	  <div class="duilian_up duil">
+				   	  	<img src="images/dl_beij2.png">
+				   	  	<div class="text"><span class="text_result">禄星</span><span class="text_other">临门官运通</span></div>
+				   	  </div>
+				   	  <div class="duilian_down duil">
+				   	  	<img src="images/dl_beij2.png">
+				   	  	<div class="text"><span class="text_result">雄鸡</span><span class="text_other">报喜好春光</span></div>
+				   	  </div>
+				   </div>
+				</div>
+				<!--开奖结果-->
+				<div class="kaijiang_result">
+					<span class="jennifer"></span>
+					<span class="wufu"></span>
+					<span class="shengxiao"></span>
+				</div>
+			</div>
+			<!--自己中奖-->
+			<div class="luck_zj" style="display: none;">
+				<div class="tanc_beij "></div>
+				<div class="zj_box wow animated" data-wow-duration="1.5s" data-wow-delay="0.2s">
+					<div class="zj_beij"><img src="images/zj_beij.png"></div>
+					<div class="zj_text">
+						<div class="zj_text_imt"><img src="images/zj_gold.png"></div>
+						<div class="zj_text_num"></div>
+					</div>
+				</div>
+			</div>
+			<!--清除成功-->
+			<div class="clear_text"><span class="spn">清除成功</span></div>
+			<!--小富贵-->
+			<div class="xfg tx" style="display:none;">
+				<div class="tanc_beij"></div>
+				<div class="tx_box">
+					<div class="tx_beij"><img src="images/tis_beij1.png"></div>
+					<!--<button class="tx_close"><img src="images/btn_close.png"></button>-->
+					<a class="tx_qd" href="javascript:;"><img src="images/btn_ok.png"></a>
+				</div>
+			</div>
+			<!--大富贵-->
+			<div class="dfg tx" style="display:none;">
+				<div class="tanc_beij"></div>
+				<div class="tx_box">
+					<div class="tx_beij"><img src="images/tis_beij3.png"></div>
+					<!--<button class="tx_close"><img src="images/btn_close.png"></button>-->
+					<a class="tx_qd" href="javascript:;"><img src="images/btn_ok.png"></a>
+				</div>
+			</div>
+			<!--小富贵选择-->
+			<div class="luck_xfg" style="display:none;">
+				<div class="tanc_beij"></div>
+				<div class="change_box">
+					<div class="box_beij"><img src="images/tis_beij2.png"></div>
+					<div class="box_content">
+						<div class="box_close"><img src="images/btn_close2.png"></div>
+						<div class="box_title">自由选择串关 选项二串一</div>
+						<div class="box_text xfg_text">
+							<img src="images/zuhe1.png">
+							<span class="spn sp1">金童</span>
+							<span class="spn sp2">福</span>
+							<em class="beilv"></em>
+						</div>
+						<div class="box_list">
+							<div class="lt1">
+							  <a href="javascript:;" class="at">展示遗漏</a>
+							  <a href="javascript:;" class="am a_1 on" data_name="a_1"><span class="spn">金童</span><em></em></a>
+							  <a href="javascript:;" class="am a_2" data_name="a_2"><span class="spn">玉女</span><em></em></a>
+							</div>
+							<div class="lt2">
+							  <a href="javascript:;" class="am b_1 on" data_name="b_1"><span class="spn">福</span><em></em></a>
+							  <a href="javascript:;" class="am b_2" data_name="b_2"><span class="spn">禄</span><em></em></a>
+							  <a href="javascript:;" class="am b_3" data_name="b_3"><span class="spn">寿</span><em></em></a>
+							  <a href="javascript:;" class="am b_4" data_name="b_4"><span class="spn">喜</span><em></em></a>
+							  <a href="javascript:;" class="am b_5" data_name="b_5"><span class="spn">财</span><em></em></a>
+							</div>
+							<div class="lt3">
+							  <a href="javascript:;" class="am c_1" data_name="c_1"><span class="spn">鼠</span><em></em></a>
+							  <a href="javascript:;" class="am c_2" data_name="c_2"><span class="spn">牛</span><em></em></a>
+							  <a href="javascript:;" class="am c_3" data_name="c_3"><span class="spn">虎</span><em></em></a>
+							  <a href="javascript:;" class="am c_4" data_name="c_4"><span class="spn">兔</span><em></em></a>
+							  <a href="javascript:;" class="am c_5" data_name="c_5"><span class="spn">龙</span><em></em></a>
+							  <a href="javascript:;" class="am c_6" data_name="c_6"><span class="spn">蛇</span><em></em></a>
+							  <br>
+							  <a href="javascript:;" class="am c_7" data_name="c_7"><span class="spn">马</span><em></em></a>
+							  <a href="javascript:;" class="am c_8" data_name="c_8"><span class="spn">羊</span><em></em></a>
+							  <a href="javascript:;" class="am c_9" data_name="c_9"><span class="spn">猴</span><em></em></a>
+							  <a href="javascript:;" class="am c_10" data_name="c_10"><span class="spn">鸡</span><em></em></a>
+							  <a href="javascript:;" class="am c_11" data_name="c_11"><span class="spn">狗</span><em></em></a>
+							  <a href="javascript:;" class="am c_12" data_name="c_12"><span class="spn">猪</span><em></em></a>
+							</div>
+						</div>
+						<div class="box_btn">
+							<a href="javascript:;" class="btn_ok">确定</a>
+							<span class="btn_text" style="display: none;">请选择</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--大富贵选择-->
+			<div class="luck_dfg" style="display:none;">
+				<div class="tanc_beij"></div>
+				<div class="change_box">
+					<div class="box_beij"><img src="images/tis_beij4.png"></div>
+					<div class="box_content">
+						<div class="box_close"><img src="images/btn_close2.png"></div>
+						<div class="box_title">自由选择串关 选项三串一</div>
+						<div class="box_text dfg_text">
+							<img src="images/zuhe2.png">
+							<span class="spn sp1">金童</span>
+							<span class="spn sp2">福</span>
+							<span class="spn sp3">鼠</span>
+							<em class="beilv"></em>
+						</div>
+						<div class="box_list">
+							<div class="lt1">
+							  <a href="javascript:;" class="at">展示遗漏</a>
+							  <a href="javascript:;" class="am a_1 on" data_name="a_1"><span class="spn">金童</span><em></em></a>
+							  <a href="javascript:;" class="am a_2" data_name="a_2"><span class="spn">玉女</span><em></em></a>
+							</div>
+							<div class="lt2">
+							  <a href="javascript:;" class="am b_1 on" data_name="b_1"><span class="spn">福</span><em></em></a>
+							  <a href="javascript:;" class="am b_2" data_name="b_2"><span class="spn">禄</span><em></em></a>
+							  <a href="javascript:;" class="am b_3" data_name="b_3"><span class="spn">寿</span><em></em></a>
+							  <a href="javascript:;" class="am b_4" data_name="b_4"><span class="spn">喜</span><em></em></a>
+							  <a href="javascript:;" class="am b_5" data_name="b_5"><span class="spn">财</span><em></em></a>
+							</div>
+							<div class="lt3">
+							  <a href="javascript:;" class="am c_1 on" data_name="c_1"><span class="spn">鼠</span><em></em></a>
+							  <a href="javascript:;" class="am c_2" data_name="c_2"><span class="spn">牛</span><em></em></a>
+							  <a href="javascript:;" class="am c_3" data_name="c_3"><span class="spn">虎</span><em></em></a>
+							  <a href="javascript:;" class="am c_4" data_name="c_4"><span class="spn">兔</span><em></em></a>
+							  <a href="javascript:;" class="am c_5" data_name="c_5"><span class="spn">龙</span><em></em></a>
+							  <a href="javascript:;" class="am c_6" data_name="c_6"><span class="spn">蛇</span><em></em></a>
+							  <br>
+							  <a href="javascript:;" class="am c_7" data_name="c_7"><span class="spn">马</span><em></em></a>
+							  <a href="javascript:;" class="am c_8" data_name="c_8"><span class="spn">羊</span><em></em></a>
+							  <a href="javascript:;" class="am c_9" data_name="c_9"><span class="spn">猴</span><em></em></a>
+							  <a href="javascript:;" class="am c_10" data_name="c_10"><span class="spn">鸡</span><em></em></a>
+							  <a href="javascript:;" class="am c_11" data_name="c_11"><span class="spn">狗</span><em></em></a>
+							  <a href="javascript:;" class="am c_12" data_name="c_12"><span class="spn">猪</span><em></em></a>
+							</div>
+						</div>
+						<div class="box_btn">
+							<a href="javascript:;" class="btn_ok">确定</a>
+							<span class="btn_text" style="display: none;">请选择</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--提示信息-->
+			<div class="luck_errTis">
+				<div class="errTis_text"><span class="spn"></span></div>
+			</div>
+			<!--游戏还剩几秒时提示-->
+			<div class="luck_djs">
+				<div class="luck_djs_beij"></div>
+				<div class="luck_djs_text">游戏加载中，请耐心等待！</div>
+			</div>
+		</div>
+		
+		<!--当前报喜-->
+		<div class="baoxi">
+			<div class="tanc_beij"></div>
+			<div class="baoxi_cont">
+				<div class="cont_title">
+					<img src="images/order_img.png">
+					<div class="btn"><img src="images/btn_question.png"></div>
+					<div class="cont_title_text">
+						<div class="ov"><span class="title">当前报喜</span></div>
+						<P>指该好运在当前回合下给你报喜。</P>
+						<P>玩家可根据当前报喜判断报喜趋势。</P>
+					</div>
+				</div>
+				<div class="cont_list">
+					<div class="cont_list_title ov">
+						<span class="time">吉时</span>
+						<span class="boy">金童</span>
+						<span class="girl">玉女</span>
+						<span class="fu">福</span>
+						<span class="lu">禄</span>
+						<span class="shou">寿</span>
+						<span class="xi">喜</span>
+						<span class="cai">财</span>
+						<span class="sxiao">生肖</span>
+					</div>
+					<div class="cont_list_order"><ul></ul></div>
+				</div>
+				<div class="cont_btn"><img src="images/btn_up.png"></div>
+			</div>
+		</div>
+		<!--网络连接出错-->
+		<div class="online">
+			<div class="tanc_beij"></div>
+			<div class="online_text">
+				<div class="text_img"><img src="images/icon10.png"></div>
+				<div class="text_info">网络连接不可用,请检查网络是否连接</div>
+			</div>
+		</div>
+		<!--体验-->
+		<div id="tiyan_xiaoh">0</div>
+		
+		<script type="text/javascript">
+ 		  document.getElementById("luck").addEventListener('touchmove', function (event) {
+		    event.preventDefault();
+		  }, false);
+
+ 	    </script>
+		<script>
+			var wow = new WOW({
+			    boxClass: 'wow',
+			    animateClass: 'animated',
+			    offset: 0,
+			    mobile: true,
+			    live: true,
+			    scrollBar: true
+			});
+			wow.init();
+		 </script>
+	</body>
+</html>
